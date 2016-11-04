@@ -4,4 +4,4 @@ Testing Java BigDecimal rounding methods and Travis CI service.
 
 For launching the test:
 
-	java -jar salestaxes.jar salestaxes.SalesTaxes
+	java -classpath salestaxes-0.0.1-SNAPSHOT.jar salestaxes.SalesTaxes
