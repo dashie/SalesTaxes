@@ -1,7 +1,7 @@
 package salestaxes;
 
-import static salestaxes.Taxes.NO_TAX;
-import static salestaxes.Taxes.SALES_TAX;
+import static salestaxes.Consts.NO_TAX;
+import static salestaxes.Consts.SALES_TAX;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -11,30 +11,30 @@ import java.util.Objects;
  */
 public class Product {
 
-  private String description;
+  private String name;
 
   private Type type;
 
   public Product() {
   }
 
-  public Product(String description, Type type) {
-    Objects.requireNonNull(description, "description");
+  public Product(String name, Type type) {
+    Objects.requireNonNull(name, "name");
     Objects.requireNonNull(type, "type");
     this.type = type;
-    this.description = description;
+    this.name = name;
   }
 
   @Override
   public String toString() {
-    return description;
+    return name;
   }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((description == null) ? 0 : description.hashCode());
+    result = prime * result + ((name == null) ? 0 : name.hashCode());
     return result;
   }
 
@@ -47,20 +47,20 @@ public class Product {
     if (getClass() != obj.getClass())
       return false;
     Product other = (Product) obj;
-    if (description == null) {
-      if (other.description != null)
+    if (name == null) {
+      if (other.name != null)
         return false;
-    } else if (!description.equals(other.description))
+    } else if (!name.equals(other.name))
       return false;
     return true;
   }
 
-  public String getDescription() {
-    return description;
+  public String getName() {
+    return name;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public Type getType() {

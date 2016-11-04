@@ -40,16 +40,18 @@ public final class Catalog {
   }
 
   /**
+   * Returns a {@link Product} from its name.
    * 
-   * @param description
+   * @param name
    * @return
    */
-  public Product find(String description) {
+  public Product find(String name) {
 
-    Objects.requireNonNull(description, "description");
-    Product p = map.get(description);
+    Objects.requireNonNull(name, "name");
+    Product p = map.get(name);
     if (p == null) {
       // TODO throw proper exception
+      throw new IllegalArgumentException("name");
     }
     return p;
   }

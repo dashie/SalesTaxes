@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
+ * A basket of items.
  */
 public class Basket {
 
@@ -36,6 +36,32 @@ public class Basket {
   }
 
   /**
+   * 
+   * @return
+   */
+  public BigDecimal evalSalesTaxes() {
+
+    BigDecimal v = Consts.ZERO;
+    for (Item item : items) {
+      v = v.add(item.getTaxes());
+    }
+    return v;
+  }
+
+  /**
+   * 
+   * @return
+   */
+  public BigDecimal evalTotal() {
+
+    BigDecimal v = Consts.ZERO;
+    for (Item item : items) {
+      v = v.add(item.getTaxedValue());
+    }
+    return v;
+  }
+
+  /**
    * Printing a receipt from a {@link Basket} to a {@link String}.
    * 
    * @return
@@ -49,15 +75,12 @@ public class Basket {
       writer.print(id);
       writer.println(":");
 
-      BigDecimal taxes = new BigDecimal("0.00");
-      BigDecimal total = new BigDecimal("0.00");
-
       for (Item item : items) {
-        taxes = taxes.add(item.getTaxes());
-        total = total.add(item.getTaxedValue());
         writer.println(item);
       }
 
+      BigDecimal taxes = evalSalesTaxes();
+      BigDecimal total = evalTotal();
       writer.println("Sales Taxes: " + taxes);
       writer.println("Total: " + total);
     }

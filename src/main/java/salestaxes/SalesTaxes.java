@@ -38,9 +38,7 @@ public class SalesTaxes {
   public String printReceipts(InputStream in) throws IOException {
 
     StringWriter buffer = new StringWriter(1024);
-    try (
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in)); 
-        PrintWriter writer = new PrintWriter(buffer)) {
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(in)); PrintWriter writer = new PrintWriter(buffer)) {
 
       String line;
       while ((line = reader.readLine()) != null) {
@@ -92,13 +90,13 @@ public class SalesTaxes {
     if (matcher.matches()) {
       try {
         int quantity = Integer.parseInt(matcher.group(1));
-        String description = matcher.group(2);
-        boolean imported = description.indexOf("imported ") != -1;
+        String name = matcher.group(2);
+        boolean imported = name.indexOf("imported ") != -1;
         if (imported) {
-          description = description.replaceAll("imported ", "");
+          name = name.replaceAll("imported ", "");
         }
         String value = matcher.group(3);
-        Product product = Catalog.SINGLETON.find(description);
+        Product product = Catalog.SINGLETON.find(name);
         return new Item(quantity, imported, product, value);
       } catch (Exception ex) {
         throw new IllegalArgumentException(str, ex);

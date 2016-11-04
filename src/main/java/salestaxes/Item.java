@@ -39,7 +39,7 @@ public class Item {
 
     BigDecimal taxes = this.value.multiply(product.getType().tax);
     if (imported) {
-      taxes = taxes.add(this.value.multiply(Taxes.IMPORT_TAXES));
+      taxes = taxes.add(this.value.multiply(Consts.IMPORT_TAX));
     }
     taxes = SalesTaxesUtils.roundTo5Cents(taxes);
     return taxes;
@@ -59,7 +59,7 @@ public class Item {
       sb.append(" imported");
     }
     sb.append(" ");
-    sb.append(product.getDescription());
+    sb.append(product.getName());
     sb.append(": ");
     sb.append(getTaxedValue());
     return sb.toString();
