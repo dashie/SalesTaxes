@@ -4,6 +4,7 @@ import static salestaxes.Taxes.NO_TAX;
 import static salestaxes.Taxes.SALES_TAX;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  *
@@ -18,6 +19,8 @@ public class Product {
   }
 
   public Product(String description, Type type) {
+    Objects.requireNonNull(description, "description");
+    Objects.requireNonNull(type, "type");
     this.type = type;
     this.description = description;
   }

@@ -1,12 +1,16 @@
 package salestaxes;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
- *
+ * The products catalog.
  */
 public final class Catalog {
 
+  /**
+   * Singleton instance of the product catalog.
+   */
   public static final Catalog SINGLETON = new Catalog();
 
   private HashMap<String, Product> map = new HashMap<>();
@@ -15,7 +19,7 @@ public final class Catalog {
    * 
    */
   private Catalog() {
-    
+
     add("book", Product.Type.BOOK);
     add("chocolate bar", Product.Type.FOOD);
     add("box of chocolates", Product.Type.FOOD);
@@ -30,7 +34,7 @@ public final class Catalog {
    * @param type
    */
   private void add(String description, Product.Type type) {
-    
+
     Product p = new Product(description, type);
     map.put(description, p);
   }
@@ -41,6 +45,12 @@ public final class Catalog {
    * @return
    */
   public Product find(String description) {
-    return map.get(description);
+
+    Objects.requireNonNull(description, "description");
+    Product p = map.get(description);
+    if (p == null) {
+      // TODO throw proper exception
+    }
+    return p;
   }
 }

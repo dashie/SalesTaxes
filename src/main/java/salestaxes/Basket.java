@@ -21,20 +21,22 @@ public class Basket {
    * @param id
    */
   public Basket(String id) {
-    super();
+    Objects.requireNonNull(id, "id");
     this.id = id;
   }
 
   /**
+   * Add an {@link Item} to the {@link Basket}.
    * 
    * @param item
    */
   public void addItem(Item item) {
-    Objects.nonNull(item);
+    Objects.requireNonNull(item, "item");
     items.add(item);
   }
 
   /**
+   * Printing a receipt from a {@link Basket} to a {@link String}.
    * 
    * @return
    */

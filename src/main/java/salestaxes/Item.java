@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- *
+ * A {@link Basket} item.
  */
 public class Item {
 
@@ -20,11 +20,12 @@ public class Item {
   }
 
   public Item(int quantity, boolean imported, Product product, String value) {
+
     if (quantity < 1) {
       throw new IllegalArgumentException("quantity");
     }
     Objects.requireNonNull(product, "product");
-    Objects.requireNonNull(product, "value");
+    Objects.requireNonNull(value, "value");
     this.quantity = quantity;
     this.imported = imported;
     this.product = product;
@@ -34,8 +35,24 @@ public class Item {
     }
   }
 
+  public BigDecimal getTaxes() {
+
+    BigDecimal taxes = this.value.multiply(product.getType().tax);
+    if (imported) {
+      taxes = taxes.add(this.value.multiply(Taxes.IMPORT_TAXES));
+    }
+    taxes = SalesTaxesUtils.roundTo5Cents(taxes);
+    return taxes;
+  }
+
+  public BigDecimal getTaxedValue() {
+
+    return value.add(getTaxes());
+  }
+
   @Override
   public String toString() {
+
     StringBuilder sb = new StringBuilder(256);
     sb.append(quantity);
     if (imported) {
@@ -78,19 +95,6 @@ public class Item {
 
   public void setValue(BigDecimal value) {
     this.value = value;
-  }
-
-  public BigDecimal getTaxes() {
-    BigDecimal taxes = this.value.multiply(product.getType().tax);
-    if (imported) {
-      taxes = taxes.add(this.value.multiply(Taxes.IMPORT_TAXES));
-    }
-    taxes = SalesTaxesUtils.roundTo5Cents(taxes);
-    return taxes;
-  }
-
-  public BigDecimal getTaxedValue() {
-    return value.add(getTaxes());
   }
 
 }
