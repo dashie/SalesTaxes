@@ -26,7 +26,7 @@ public class SalesTaxes {
   public static void main(String[] args) throws Exception {
 
     SalesTaxes salesTaxes = new SalesTaxes();
-    String receipts = salesTaxes.printReceipts(System.in);
+    String receipts = salesTaxes.printReceipts(SalesTaxes.class.getResourceAsStream("/input.txt")); // TODO use System.in
     System.out.print(receipts);
   }
 
